@@ -1,0 +1,16 @@
+{
+  "name": "epix",
+  "version": "0.1.0",
+  "description": "",
+  "author": "Evandro Junior <ecsb.junior@gmail.com>",
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {},
+  "devDependencies": {
+    "bun-types": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5.0.0"
+  }
+}

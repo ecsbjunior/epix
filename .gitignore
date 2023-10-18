@@ -1,0 +1,6 @@
+bin
+dist
+.next
+node_modules
+
+.env*
