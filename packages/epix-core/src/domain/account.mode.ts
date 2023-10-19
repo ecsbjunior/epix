@@ -3,6 +3,7 @@ import { PixKey } from './pix-key.mode';
 
 type AccountProps = Omit<Account, ''>;
 type CreateAccountProps = Pick<Account, 'owner' | 'number' | 'bankId'>;
+type LoadAccountProps = Omit<Account, ''>;
 
 export class Account extends Base {
   owner: string;
@@ -27,6 +28,21 @@ export class Account extends Base {
       bankId: props.bankId,
       createdAt: new Date(),
       updatedAt: new Date(),
+    });
+
+    account.#validate();
+
+    return account;
+  }
+
+  static load(props: LoadAccountProps) {
+    const account = new Account({
+      id: props.id,
+      owner: props.owner,
+      number: props.number,
+      bankId: props.bankId,
+      createdAt: props.createdAt,
+      updatedAt: props.updatedAt,
     });
 
     account.#validate();

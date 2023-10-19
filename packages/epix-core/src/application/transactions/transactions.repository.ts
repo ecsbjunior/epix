@@ -1,4 +1,4 @@
-import { Transaction } from '../domain/transaction.model';
+import { Transaction } from '@epix/core/domain/transaction.model';
 
 export interface ITransactionsRepository {
   findOne(id: string): Promise<Transaction>;

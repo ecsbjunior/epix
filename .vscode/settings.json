@@ -1,5 +1,11 @@
 {
+  "typescript.preferences.importModuleSpecifier": "non-relative",
+  "editor.codeActionsOnSave": {
+    "source.addMissingImports": true
+  },
   "cSpell.words": [
-    "epix"
+    "datasource",
+    "epix",
+    "postgresql"
   ]
 }

@@ -3,5 +3,13 @@
   "version": "0.1.0",
   "description": "",
   "author": "Evandro Junior <ecsb.junior@gmail.com>",
-  "scripts": {}
+  "scripts": {
+    "migrate:dev": "bun x prisma migrate dev"
+  },
+  "dependencies": {
+    "@prisma/client": "5.4.2"
+  },
+  "devDependencies": {
+    "prisma": "5.4.2"
+  }
 }

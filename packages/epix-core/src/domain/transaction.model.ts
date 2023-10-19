@@ -2,7 +2,8 @@ import { Base } from './base.model';
 
 type TransactionProps = Omit<Transaction, 'complete' | 'cancel'>;
 type CreateTransactionProps = Pick<Transaction, 'amount' | 'description' | 'toPixKeyId' | 'fromAccountId'>;
-type CancelProps = Pick<Transaction, 'cancellationReason'>;
+type LoadTransactionProps = Omit<Transaction, 'complete' | 'cancel'>;
+type CancelTransactionProps = Pick<Transaction, 'cancellationReason'>;
 
 export enum TransactionStatus {
   ERROR = 'ERROR',
@@ -47,12 +48,30 @@ export class Transaction extends Base {
     return transaction;
   }
 
+  static load(props: LoadTransactionProps) {
+    const transaction = new Transaction({
+      id: props.id,
+      amount: props.amount,
+      status: props.status,
+      description: props.description,
+      cancellationReason: props.cancellationReason,
+      toPixKeyId: props.toPixKeyId,
+      fromAccountId: props.fromAccountId,
+      createdAt: props.createdAt,
+      updatedAt: props.updatedAt,
+    });
+
+    transaction.#validate();
+
+    return transaction;
+  }
+
   complete() {
     this.status = TransactionStatus.COMPLETED;
     this.updatedAt = new Date();
   }
 
-  cancel(props: CancelProps) {
+  cancel(props: CancelTransactionProps) {
     this.status = TransactionStatus.CANCELED;
     this.cancellationReason = props.cancellationReason;
     this.updatedAt = new Date();

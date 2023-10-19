@@ -2,6 +2,7 @@ import { Base } from './base.model';
 
 type PixKeyProps = Omit<PixKey, ''>;
 type CreatePixKeyProps = Pick<PixKey, 'key' | 'kind' | 'accountId'>;
+type LoadPixKeyProps = Omit<PixKey, ''>;
 
 export enum PixKeyKind {
   CPF = 'CPF',
@@ -39,6 +40,22 @@ export class PixKey extends Base {
       accountId: props.accountId,
       createdAt: new Date(),
       updatedAt: new Date(),
+    });
+
+    pixKey.#validate();
+
+    return pixKey;
+  }
+
+  static load(props: LoadPixKeyProps) {
+    const pixKey = new PixKey({
+      id: props.id,
+      key: props.key,
+      kind: props.kind,
+      status: props.status,
+      accountId: props.accountId,
+      createdAt: props.createdAt,
+      updatedAt: props.updatedAt,
     });
 
     pixKey.#validate();
