@@ -1,0 +1,13 @@
+{
+  "name": "@epix/grpc",
+  "version": "0.1.0",
+  "author": "Evandro Junior <ecsb.junior@gmail.com>",
+  "description": "",
+  "main": "src/index.ts",
+  "scripts": {
+  },
+  "dependencies": {
+    "@epix/grpc-loader": "*",
+    "@grpc/grpc-js": "^1.9.6"
+  }
+}

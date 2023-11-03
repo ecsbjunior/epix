@@ -1,0 +1,14 @@
+{
+  "name": "@epix/grpc-loader",
+  "version": "0.1.0",
+  "author": "Evandro Junior <ecsb.junior@gmail.com>",
+  "description": "",
+  "main": "src/index.ts",
+  "scripts": {
+    "proto:generate": "bun x proto-loader-gen-types --grpcLib=@grpc/grpc-js --outDir=./src/proto/stubs/ ./src/proto/*.proto"
+  },
+  "dependencies": {
+    "@grpc/grpc-js": "^1.9.6",
+    "@grpc/proto-loader": "^0.7.10"
+  }
+}

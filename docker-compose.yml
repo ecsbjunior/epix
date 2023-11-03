@@ -1,0 +1,46 @@
+version: "3.8"
+
+services:
+  epix-db:
+    image: postgres:latest
+    restart: always
+    volumes: .pgdata:/var/lib/postgresql/data
+    enviroment:
+      - POSTGRES_PASSWORD=root
+      - POSTGRES_DB=epixdb
+    ports:
+      - 5432:5432
+  epix-zookeeper:
+    image: confluentinc/cp-zookeeper:latest
+    enviroment:
+      - ZOOKEEPER_CLIENT_PORT=2181
+  epix-kafka:
+    image: confluentinc/cp-kafka:latest
+    depends_on:
+      - epix-zookeeper
+    ports:
+      - 9092:9092
+      - 9094:9094
+    enviroment:
+      KAFKA_BROKER_ID: 1
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_ZOOKEEPER_CONNECT: epix-zookeeper:2181
+      KAFKA_INTER_BROKER_LISTENER_NAME: INTERNAL
+      KAFKA_LISTENERS: INTERNAL://:9092,OUTSIDE://:9094
+      KAFKA_ADVERTISED_LISTENERS: INTERNAL://epix-kafka:9092,OUTSIDE://host.docker.internal:9094
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: INTERNAL:PLAINTEXT,OUTSIDE:PLAINTEXT
+    extra_hosts:
+      - "host.docker.internal:172.17.0.1"
+  epix-kafka-topics-generator:
+    image: confluentinc/cp-kafka:latest
+    depends_on:
+      - epix-kafka
+    command: >
+      bash -c
+      "sleep 5s &&
+      kafka-topics --create --topic=transactions --if-not-exists --bootstrap-server=epix-kafka:9092 &&
+      kafka-topics --create --topic=transaction-confirmation --if-not-exists --bootstrap-server=kafka:9092 &&
+      kafka-topics --create --topic=bank001 --if-not-exists --bootstrap-server=kafka:9092 &&
+      kafka-topics --create --topic=bank002 --if-not-exists --bootstrap-server=kafka:9092"
+    extra_hosts:
+      - "host.docker.internal:172.17.0.1"

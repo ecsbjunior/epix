@@ -1,0 +1,37 @@
+syntax = "proto3";
+
+package pixKey;
+
+service PixKeyService {
+  rpc FindOnePixKey(FindOnePixKeyRequest) returns (FindOnePixKeyResponse);
+  rpc RegisterPixKey(RegisterPixKeyRequest) returns (RegisterPixKeyResponse);
+}
+
+message RegisterPixKeyRequest {
+  string key = 1;
+  string kind = 2;
+  string accountId = 3;
+}
+
+message RegisterPixKeyResponse {
+  string id = 1;
+}
+
+message FindOnePixKeyRequest {
+  string key = 1;
+  string kind = 2;
+}
+
+message FindOnePixKeyResponse {
+  string id = 1;
+  string key = 2;
+  string kind = 3;
+  string accountId = 4;
+}
+
+// message Account {
+//   string owner = 1;
+//   string number = 2;
+//   string bankId = 3;
+//   string accountId = 4;
+// }

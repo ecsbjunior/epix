@@ -20,6 +20,8 @@
     ],
     "paths": {
       "@epix/core/*": ["./packages/epix-core/src/*"],
+      "@epix/grpc/*": ["./packages/epix-grpc/src/*"],
+      "@epix/grpc-loader": ["./packages/epix-grpc-loader/src"],
     }
   }
 }
